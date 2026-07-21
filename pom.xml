@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.banking</groupId>
+    <artifactId>banking-webclient-netty</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>Banking App — WebClient + Reactor Netty</name>
+    <description>
+        HTTP client approach: WebClient (reactive fluent API) over Reactor Netty (NIO engine).
+        mTLS: Netty SslContextBuilder + SslContext (Netty type) + HttpClient.secure().
+        Non-blocking reactive. Connection pooling via ConnectionProvider.
+        onStatus() maps HTTP errors at the call site. Parallel calls with Mono.zip().
+    </description>
+
+    <modules>
+        <module>account-service</module>
+        <module>customer-service</module>
+        <module>payment-service</module>
+    </modules>
+
+    <properties>
+        <java.version>21</java.version>
+    </properties>
+
+    <dependencies>
+        <!-- WebFlux — brings Reactor Netty and WebClient -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

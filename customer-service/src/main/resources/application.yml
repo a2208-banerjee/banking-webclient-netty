@@ -1,0 +1,18 @@
+server:
+  port: 8453
+  ssl:
+    enabled: true
+    key-store: classpath:certs/server.p12
+    key-store-password: changeit
+    key-store-type: PKCS12
+    key-alias: server
+    trust-store: classpath:certs/truststore.jks
+    trust-store-password: changeit
+    trust-store-type: JKS
+    client-auth: need
+spring:
+  application:
+    name: customer-service-netty
+logging:
+  level:
+    com.banking: DEBUG

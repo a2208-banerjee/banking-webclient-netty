@@ -1,0 +1,44 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: payment-service-webclient-netty
+
+services:
+  account-service:
+    url: https://localhost:8443
+  customer-service:
+    url: https://localhost:8453
+
+# ── mTLS Client Configuration ─────────────────────────────────────────────────
+# Same config structure as App 1 — loaded by MtlsProperties.
+# The difference is HOW it's used:
+#   App 1: SSLContextBuilder (Apache) → SSLContext (JDK) → SSLConnectionSocketFactory
+#   App 2: SslContextBuilder (Netty)  → SslContext (Netty) → HttpClient.secure()
+mtls:
+  keystore:
+    path:     classpath:certs/client.p12
+    password: changeit
+    type:     PKCS12
+  truststore:
+    path:     classpath:certs/truststore.jks
+    password: changeit
+    type:     JKS
+  disable-hostname-verification: true   # dev only
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.banking:                          DEBUG
+    reactor.netty:                        DEBUG   # shows Netty event loop activity
+    reactor.netty.http.client:            DEBUG   # shows HTTP request/response
+    io.netty.handler.ssl:                 DEBUG   # shows TLS handshake details
